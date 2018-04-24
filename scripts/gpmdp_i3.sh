@@ -51,3 +51,7 @@ echo $OUT
 }
 
 main
+
+case $BLOCK_BUTTON in
+  1) i3-msg '[class="Google Play Music Desktop Player"] focus' ;;
+esac
