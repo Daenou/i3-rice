@@ -6,13 +6,25 @@
 # Parses the output of the Google Play Music Desktop Player JSON file and displays it as i3blocks widget.
 
 JP="$HOME/.config/gpmdp/json_store/playback.json"
+STEPS="10"
 
 progress_bar () {
+  # Get length of song in ms
   LEN=$(jq -r .time.total "$JP")
+  # Get position in song
   POS=$(jq -r .time.current "$JP")
-  HST=$(echo "(($POS)/($LEN/10))+1" | bc)
-  FIL=$(echo "(10-$HST)" | bc)
-  PRG=$(head -c "$HST" < /dev/zero | tr '\0' '#')
+  # Calculate number of hashtags
+  HST=$(echo "(($POS)/($LEN/$STEPS))+1" | bc)
+  # Calculate number of fillers
+  FIL=$(echo "($STEPS-$HST)" | bc)
+  # Don't show any progress if position is zero
+  if [[ "$POS" -eq "0"  ]]
+  then
+    HST=0
+  else
+  # Otherwise 
+    PRG=$(head -c "$HST" < /dev/zero | tr '\0' '#')
+  fi  
   TOT=$(head -c "$FIL" < /dev/zero | tr '\0' '-')
   echo " - [$PRG$TOT]"
 }
