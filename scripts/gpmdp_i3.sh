@@ -7,6 +7,8 @@
 
 JP="$HOME/.config/gpmdp/json_store/playback.json"
 STEPS="10"
+PRG_ICON="#"
+FILL_ICON="-"
 
 progress_bar () {
   # Get length of song in ms
@@ -23,18 +25,20 @@ progress_bar () {
     HST=0
   else
   # Otherwise 
-    PRG=$(head -c "$HST" < /dev/zero | tr '\0' '#')
+    PRG=$(head -c "$HST" < /dev/zero | tr '\0' "$PRG_ICON")
   fi  
-  TOT=$(head -c "$FIL" < /dev/zero | tr '\0' '-')
+  TOT=$(head -c "$FIL" < /dev/zero | tr '\0' "$FILL_ICON")
   echo " - [$PRG$TOT]"
 }
 
 main () {
 OUT=""
+# Check if any song is selected
 if [[ $(jq .song.title "$JP") == "null" ]]
 then
   echo "0"
   exit 1
+# else show the Artist, song name and progress bar
 else 
   ART=$(jq -r .song.artist "$JP")
   TIT=$(jq -r .song.title "$JP")
