@@ -2,7 +2,7 @@
 
 
 echo "Installing prerequisites..."
-sudo apt-get -y install i3 i3blocks rofi compton jq 
+sudo apt-get -y install i3 i3blocks rofi compton jq i3-lock
 
 echo "Creating symbolic link for Google Play Music Desktop Player..."
 
