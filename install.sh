@@ -10,6 +10,7 @@ GPPATH="$HOME/.config/gpmdp"
 I3CFG="$HOME/.config/i3/config"
 I3BCFG="$HOME/.config/i3/i3blocks.conf"
 FONTPATH="$HOME/.fonts"
+SCRIPTPATH="$HOME/scripts"
 
 if ! [ -L "$GPPATH" ]
 then
@@ -28,7 +29,7 @@ else
   while true; do
     read -p "An i3 config already exists, overwrite? [y,n]: " yn
     case $yn in
-      [Yy]) cp ./.config/i3/config "$I3CFG" break;;
+      [Yy]) cp ./.config/i3/config "$I3CFG"; break;;
       [Nn]) break;;
       *) echo "Please answer 'y' or 'n'."
     esac
@@ -38,12 +39,12 @@ fi
 if ! [ -e "$I3BCFG" ]
 then
   echo "Copying i3-Blocks config file..."
-  cp ./.config/i3/i3blocks.conf "$I3CFG"
+  cp ./.config/i3/i3blocks.conf "$I3BCFG"
 else
   while true; do
     read -p "An i3-Blocks config already exists, overwrite? [y,n]: " yn
     case $yn in
-      [Yy]) cp ./.config/i3/i3blocks.conf "$I3BCFG" break;;
+      [Yy]) cp ./.config/i3/i3blocks.conf "$I3BCFG"; break;;
       [Nn]) break;;
       *) echo "Please answer 'y' or 'n'."
     esac
@@ -71,3 +72,21 @@ else
   echo "Font Awesome is already installed."
 fi
 
+
+echo "Installing scripts..."
+if ! [ -d "$SCRIPTPATH" ]
+then
+  cp -r ./scripts $HOME
+else
+  if ! [ -f "$SCRIPTPATH/gpmdp_i3.sh" ]
+  then
+    cp .scripts/gpmdp_i3.sh "$SCRIPTPATH/"
+  fi
+  if ! [ -f "$SCRIPTPATH/lock.sh" ]
+  then
+    cp .scripts/lock.sh "$SCRIPTPATH/"
+  fi
+fi
+
+echo "Reloading i3..."
+i3-msg restart
