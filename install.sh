@@ -2,13 +2,13 @@
 
 
 echo "Installing prerequisites..."
-sudo apt-get -y install i3 i3blocks i3lock rofi compton jq scrot convert
+sudo apt-get -y install i3 i3blocks i3lock rofi compton jq scrot
 
 echo "Creating symbolic link for Google Play Music Desktop Player..."
 
 GPPATH="$HOME/.config/gpmdp"
 I3CFG="$HOME/.config/i3/config"
-I3BCFG="$HOME/.config/i3/i3blocks"
+I3BCFG="$HOME/.config/i3/i3blocks.conf"
 FONTPATH="$HOME/.fonts"
 SCRIPTPATH="$HOME/scripts"
 
