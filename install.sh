@@ -9,6 +9,7 @@ echo "Creating symbolic link for Google Play Music Desktop Player..."
 GPPATH="$HOME/.config/gpmdp"
 I3CFG="$HOME/.config/i3/config"
 I3BCFG="$HOME/.config/i3/i3blocks.conf"
+XRSC="$HOME/.Xresources"
 FONTPATH="$HOME/.fonts"
 SCRIPTPATH="$HOME/scripts"
 
@@ -51,6 +52,21 @@ else
   done
 fi
 
+if ! [ -e "$XRSC" ]
+then
+  echo "Copying Xresources config file..."
+  cp ./Xresources "$I3BCFG"
+else
+  while true; do
+    read -p "An Xresources config already exists, overwrite? [y,n]: " yn
+    case $yn in
+      [Yy]) cp ./Xresources "$I3BCFG"; break;;
+      [Nn]) break;;
+      *) echo "Please answer 'y' or 'n'."
+    esac
+  done
+fi
+
 
 echo "Installing FontAwesome..."
 
@@ -81,10 +97,6 @@ else
   if ! [ -f "$SCRIPTPATH/gpmdp_i3.sh" ]
   then
     cp .scripts/gpmdp_i3.sh "$SCRIPTPATH/"
-  fi
-  if ! [ -f "$SCRIPTPATH/lock.sh" ]
-  then
-    cp .scripts/lock.sh "$SCRIPTPATH/"
   fi
 fi
 
