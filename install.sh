@@ -4,23 +4,11 @@
 echo "Installing prerequisites..."
 sudo apt-get -y install i3 i3blocks i3lock rofi compton jq scrot
 
-echo "Creating symbolic link for Google Play Music Desktop Player..."
-
-GPPATH="$HOME/.config/gpmdp"
 I3CFG="$HOME/.config/i3/config"
 I3BCFG="$HOME/.config/i3/i3blocks.conf"
 XRSC="$HOME/.Xresources"
 FONTPATH="$HOME/.fonts"
 SCRIPTPATH="$HOME/scripts"
-
-if ! [ -L "$GPPATH" ]
-then
-  echo "Creating symbolic link for gpmdp..."
-  ln --symbolic "$HOME/.config/Google Play Music Desktop Player/" "$HOME/.config/gpmdp/"
-else
-  echo "Symbolic link already exists..."
-fi
-
 
 if ! [ -e "$I3CFG" ]
 then
@@ -93,11 +81,11 @@ echo "Installing scripts..."
 if ! [ -d "$SCRIPTPATH" ]
 then
   cp -r ./scripts $HOME
-else
-  if ! [ -f "$SCRIPTPATH/gpmdp_i3.sh" ]
-  then
-    cp .scripts/gpmdp_i3.sh "$SCRIPTPATH/"
-  fi
+#else
+#  if ! [ -f "$SCRIPTPATH/gpmdp_i3.sh" ]
+#  then
+#    cp .scripts/gpmdp_i3.sh "$SCRIPTPATH/"
+#  fi
 fi
 
 echo "Reloading i3..."
