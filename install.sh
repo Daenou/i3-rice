@@ -1,6 +1,14 @@
 #!/bin/bash
 
 
+if [ -d "./files" ]
+then
+  cd ./files
+else
+  echo "ERROR: ./files directory doesn't exist, are you executing this script from the right path?"
+  exit 1
+fi
+
 echo "Installing prerequisites..."
 sudo apt-get -y install i3 i3blocks i3lock rofi compton jq scrot
 
@@ -9,6 +17,7 @@ I3BCFG="$HOME/.config/i3/i3blocks.conf"
 XRSC="$HOME/.Xresources"
 FONTPATH="$HOME/.fonts"
 SCRIPTPATH="$HOME/scripts"
+X11CFGDIR="/etc/X11/xorg.conf.d/"
 
 if ! [ -e "$I3CFG" ]
 then
@@ -55,6 +64,28 @@ else
   done
 fi
 
+if ! [ -d "$X11CFGDIR" ]
+then
+  echo "Creating $X11CFGDIR and copying touchpad config file..."
+  mkdir "$X11CFGDIR"
+  cp ./90-touchpad.conf "$X11CFGDIR"
+else
+  if ! [ -e "$X11CFGDIR/90-touchpad.conf" ]
+  then
+    cp ./90-touchpad.conf "$X11CFGDIR"
+  else
+    while true; do
+      read -p "A 90-touchpad.conf already exists in $X11CFGDIR, overwrite? [y,n]: " yn
+      case $yn in
+        [Yy]) cp ./90-touchpad.conf "$X11CFGDIR"; break;;
+        [Nn]) break;;
+        *) echo "Please answer 'y' or 'n'."
+      esac
+    done
+  fi
+fi
+
+
 
 echo "Installing FontAwesome..."
 
@@ -77,16 +108,19 @@ else
 fi
 
 
-echo "Installing scripts..."
-if ! [ -d "$SCRIPTPATH" ]
-then
-  cp -r ./scripts $HOME
+#echo "Installing scripts..."
+#if ! [ -d "$SCRIPTPATH" ]
+#then
+#  cp -r ./scripts $HOME
 #else
 #  if ! [ -f "$SCRIPTPATH/gpmdp_i3.sh" ]
 #  then
 #    cp .scripts/gpmdp_i3.sh "$SCRIPTPATH/"
 #  fi
-fi
+#fi
 
 echo "Reloading i3..."
 i3-msg restart
+
+echo "Please logout and login to apply the X11 config"
+echo "Enjoy!"
