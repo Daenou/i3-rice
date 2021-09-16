@@ -55,12 +55,12 @@ fi
 if ! [ -e "$XRSC" ]
 then
   echo "Copying Xresources config file..."
-  cp ./Xresources "$I3BCFG"
+  cp ./Xresources "$XRSC"
 else
   while true; do
     read -p "An Xresources config already exists, overwrite? [y,n]: " yn
     case $yn in
-      [Yy]) cp ./Xresources "$I3BCFG"; break;;
+      [Yy]) cp ./Xresources "$XRSC"; break;;
       [Nn]) break;;
       *) echo "Please answer 'y' or 'n'."
     esac
