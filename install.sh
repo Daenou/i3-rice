@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ -d "./files" ]
 then
   cd ./files
@@ -10,7 +9,8 @@ else
 fi
 
 echo "Installing prerequisites..."
-sudo apt-get -y install i3 i3blocks i3lock rofi compton jq scrot
+sudo apt-get -y install i3 i3blocks i3lock rofi compton jq scrot brightnessctl redshift
+sudo snap install indicator-sound-switcher
 
 I3CFG="$HOME/.config/i3/config"
 I3BCFG="$HOME/.config/i3/i3blocks.conf"
@@ -22,12 +22,12 @@ X11CFGDIR="/etc/X11/xorg.conf.d/"
 if ! [ -e "$I3CFG" ]
 then
   echo "Copying i3 config file..."
-  cp ./.config/i3/config "$I3CFG"
+  cp ./config "$I3CFG"
 else
   while true; do
     read -p "An i3 config already exists, overwrite? [y,n]: " yn
     case $yn in
-      [Yy]) cp ./.config/i3/config "$I3CFG"; break;;
+      [Yy]) cp ./config "$I3CFG"; break;;
       [Nn]) break;;
       *) echo "Please answer 'y' or 'n'."
     esac
@@ -37,12 +37,12 @@ fi
 if ! [ -e "$I3BCFG" ]
 then
   echo "Copying i3-Blocks config file..."
-  cp ./.config/i3/i3blocks.conf "$I3BCFG"
+  cp ./i3blocks.conf "$I3BCFG"
 else
   while true; do
     read -p "An i3-Blocks config already exists, overwrite? [y,n]: " yn
     case $yn in
-      [Yy]) cp ./.config/i3/i3blocks.conf "$I3BCFG"; break;;
+      [Yy]) cp ./i3blocks.conf "$I3BCFG"; break;;
       [Nn]) break;;
       *) echo "Please answer 'y' or 'n'."
     esac
@@ -118,6 +118,9 @@ fi
 #    cp .scripts/gpmdp_i3.sh "$SCRIPTPATH/"
 #  fi
 #fi
+
+echo "Creating sudoers file for passwordless execution of brightnessctl..."
+sudo echo "$(whoami) ALL= NOPASSWD: /usr/bin/brightnessctl" > /etc/sudoers.d/brightnessctl
 
 echo "Reloading i3..."
 i3-msg restart
