@@ -9,7 +9,7 @@ else
 fi
 
 echo "Installing prerequisites..."
-sudo apt-get -y install i3 i3blocks i3lock rofi compton jq scrot brightnessctl redshift
+sudo apt-get -y install i3 i3blocks i3lock rofi compton jq scrot brightnessctl redshift pulsemixer
 sudo snap install indicator-sound-switcher
 
 I3CFG="$HOME/.config/i3/config"
