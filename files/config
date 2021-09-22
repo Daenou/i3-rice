@@ -189,7 +189,6 @@ client.background	$green
 # finds out, if available)
 bar {
 	font xft:SFNS Display:pixelsize=11
-        #status_command i3status
         status_command i3blocks -c /home/danr/.config/i3/i3blocks.conf
         tray_output primary
 	position top
@@ -217,27 +216,28 @@ exec --no-startup-id feh --randomize --bg-fill ~/Pictures/BG/*
 exec --no-startup-id i3-msg 'workspace $workspace1; exec thunderbird'
 exec --no-startup-id i3-msg 'workspace $workspace2; exec rxvt-unicode'
 exec --no-startup-id i3-msg 'workspace $workspace3; exec firefox'
-#exec --no-startup-id i3-msg 'workspace $workspace4; exec google-play-music-desktop-player'
-exec --no-startup-id /home/danr/bin/snom-eventd.py # Shows who is calling
 exec_always compton -f -D 1 # Needed for opaque rofi and window fade-in
 exec_always --no-startup-id redshift
+exec_always --no-startup-id nm-applet
+exec_always --no-startup-id indicator-sound-switcher
 
 # Binds
 bindsym Mod4+l exec --no-startup-id betterlockscreen -l
-bindsym Control+$mod+KP_0 exec --no-startup-id "dial --clipboard"
 bindsym Num_Lock exec --no-startup-id "sleep 0.1; numlockx on"
-bindsym Control+Print exec gnome-screenshot -a -i -c
 
-# Media Keys
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 1 +1% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 1 -1% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+# XF86 special functions
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +1% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -1% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle # mute mic
+bindsym XF86MonBrightnessUp exec --no-startup-id sudo brightnessctl -q -d intel_backlight set +10% # brightness up
+bindsym XF86MonBrightnessDown exec --no-startup-id sudo brightnessctl -q -d intel_backlight set 10%- # brightness down
+bindsym XF86Tools exec --no-startup-id gnome-control-center
+
 
 # Specific config for windows
-for_window [class="Google Play Music Desktop Player"] floating enable
 for_window [class="TelegramDesktop"] floating enable
 for_window [title=".*WhatsApp"] floating enable
-for_window [class="TeamViewer"] floating enable
 for_window [class="Msgcompose"] floating enable
 for_window [class="Thunar"] floating enable
 for_window [class="KeePass2"] floating enable
