@@ -10,4 +10,10 @@ The rice comes with a simple install script which does the following tasks:
 - Installs the default configuration files in ./files
 - Adds necessary sudoers configuration for passwordless execution for brightnessctl
 
+To use the script please:
+- Make the install.sh executable `chmod +x install.sh`
+- Execute it `./install.sh`
+
+Enjoy.
+
 Note: This is not perfect, please create issues/prs for issues you might encounter.
