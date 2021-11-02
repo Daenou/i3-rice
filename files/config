@@ -217,12 +217,12 @@ exec --no-startup-id i3-msg 'workspace $workspace1; exec thunderbird'
 exec --no-startup-id i3-msg 'workspace $workspace2; exec rxvt-unicode'
 exec --no-startup-id i3-msg 'workspace $workspace3; exec firefox'
 exec_always compton -f -D 1 # Needed for opaque rofi and window fade-in
-exec_always --no-startup-id redshift
+#exec_always --no-startup-id redshift
 exec_always --no-startup-id nm-applet
 exec_always --no-startup-id indicator-sound-switcher
 
 # Binds
-bindsym Mod4+l exec --no-startup-id betterlockscreen -l
+bindsym Mod4+l exec --no-startup-id i3lock -f -e -i Downloads/Andromeda_galaxy.png -t
 bindsym Num_Lock exec --no-startup-id "sleep 0.1; numlockx on"
 
 # XF86 special functions
