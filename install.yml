@@ -1,0 +1,65 @@
+---
+
+
+- name: "Install i3 rice"
+  hosts: localhost
+
+  tasks:
+    - name: "Installing apt prerequisites"
+      ansible.builtin.apt:
+        name:
+          - i3
+          - i3blocks
+          - i3lock
+          - rofi
+          - compton
+          - scrot
+          - brightnessctl
+          - redshift
+          - pulsemixer
+        state: present
+        update_cache: yes
+      become: yes
+    
+    - name: "Installing snap prerequisites"
+      community.general.snap:
+        name: indicator-sound-switcher
+        state: present
+      become: yes
+
+    - name: "Installing i3 config file"
+      ansible.builtin.copy:
+        src: files/config
+        dest: ~/.config/i3/config
+        backup: yes
+
+    - name: "Installing i3blocks config file"
+      ansible.builtin.copy:
+        src: files/i3blocks.conf
+        dest: ~/.config/i3/i3blocks.conf
+        backup: yes
+
+    - name: "Installing Xresources config file"
+      ansible.builtin.copy:
+        src: files/.Xresources
+        dest: ~/.Xresources
+        backup: yes
+
+    - name: "Create X11 conf.d directory"
+      ansible.builtin.file:
+        path: /etc/X11/xorg.conf.d
+        state: directory
+        mode: 0755
+
+    - name: "Installing X11 touchpad config file"
+      ansible.builtin.copy:
+        src: files/90-touchpad.conf
+        dest: /etc/X11/xorg.conf.d/90-touchpad.conf
+        backup: no
+
+    - name: "Creating sudoers file for brightnessctl"
+      ansible.builtin.template:
+        src: files/brightnessctl.j2
+        dest: /etc/sudoers.d/brightnessctl
+        backup: no
+      become: yes
