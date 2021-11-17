@@ -13,9 +13,9 @@ The rice comes with a simple ansible install playbook which does the following t
 
 To use the playbook please:
 - Install ansible `sudo apt install ansible`
-- Install the community.general collection: `ansible-galaxy collection install community.general"
+- Install the community.general collection: `ansible-galaxy install -r requirements.yml`
 - First execute the playbook with --check and --diff to show the changes `ansible-playbook install.yml --check --diff -K`
-- Then execute the playbook without --check `ansible-playbook install.yml -diff -K"
+- Then execute the playbook without --check `ansible-playbook install.yml -diff -K`
 
 Enjoy.
 
