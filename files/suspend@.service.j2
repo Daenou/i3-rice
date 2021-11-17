@@ -1,0 +1,12 @@
+[Unit]
+Description=User suspend actions
+Before=sleep.target
+
+[Service]
+User=%I
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/i3lock -f -e -i /home/%I/Downloads/Andromeda_galaxy.png -t
+
+[Install]
+WantedBy=sleep.target
