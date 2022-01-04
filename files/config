@@ -222,7 +222,7 @@ exec_always --no-startup-id nm-applet
 exec_always --no-startup-id indicator-sound-switcher
 
 # Binds
-bindsym Mod4+l exec --no-startup-id i3lock -f -e -i Downloads/Andromeda_galaxy.png -t
+bindsym Mod4+l exec --no-startup-id i3lock -f -e -t -i Downloads/Andromeda_galaxy.png
 bindsym Num_Lock exec --no-startup-id "sleep 0.1; numlockx on"
 
 # XF86 special functions
@@ -238,7 +238,7 @@ bindsym XF86Tools exec --no-startup-id gnome-control-center
 # Specific config for windows
 for_window [class="TelegramDesktop"] floating enable
 for_window [title=".*WhatsApp"] floating enable
-for_window [class="Msgcompose"] floating enable
+for_window [title="Write: "] floating enable
 for_window [class="Thunar"] floating enable
 for_window [class="KeePass2"] floating enable
 
