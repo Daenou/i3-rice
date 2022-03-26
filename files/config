@@ -198,8 +198,8 @@ bar {
 		background		$bark
 		statusline		$bronze
 		#			border	background	text
-		focused_workspace	$green	$golden		$bark
-		active_workspace	$green	$bronze		$bark
+		focused_workspace	$golden	$golden		$bark
+		active_workspace	$golden	$bronze		$bark
 		inactive_workspace	$bronze	$green		$bark
 	}
 }
