@@ -17,6 +17,7 @@
           - brightnessctl
           - redshift
           - pulsemixer
+          - lm-sensors
         state: present
         update_cache: yes
       become: yes
